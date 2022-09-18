@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="/icon.png" />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>login</title>
+</head>
+<body>
+    <nav>
+        <div class="welcome">
+            <h2 id="curret"> <span id="present"></span></h2>
+            <h3 id="head"> <span id="user">akin</span></h3>
+        </div>
+    
+        <img src="logo.png" alt="Logo" class="logo" />
+    
+        <form id="form">
+                <input type="text" name=""  class="login__input login__input--user" id="name" placeholder="user name">
+                <button class="login__btn" id="login">login</button>
+        </form>
+
+    </nav>
+
+    <div class="angry-grid">
+        <div id="list_container">
+                <h2>Active Users</h2>
+                <div id="list">
+                    <ul>
+                        <!-- <li>wale <span class="status">login</span></li>
+                        <li>saheed <span class="status">login</span></li>
+                        <li>dayo <span class="status">login</span></li>
+                        <li>tafiq <span class="status">login</span></li> -->
+                    </ul>
+                </div>
+                <button id="delete">delete all user</button>
+        </div>
+        <div id="item-1">
+            <!-- BALANCE -->
+            <div class="balance">
+          <div>
+            <p class="balance__label">Current balance</p>
+            <p class="balance__date">
+              As of <span class="date">05/03/2037</span>
+            </p>
+          </div>
+          <p class="balance__value">$253,650.65</p>
+            </div>
+  
+            <!-- MOVEMENTS -->
+            <div class="movements">
+          <div class="movements__row">
+            <div class="movements__type movements__type--deposit">2 deposit</div>
+            <div class="movements__date">3 days ago</div>
+            <div class="movements__value">4 000$</div>
+          </div>
+          <div class="movements__row">
+            <div class="movements__type movements__type--withdrawal">
+              1 withdrawal
+            </div>
+            <div class="movements__date">24/01/2037</div>
+            <div class="movements__value">-378$</div>
+          </div>
+            </div>
+  
+            <!-- SUMMARY -->
+            <div class="summary">
+          <p class="summary__label">In</p>
+          <p class="summary__value summary__value--in">$0000</p>
+          <p class="summary__label">Out</p>
+          <p class="summary__value summary__value--out">$0000</p>
+          <p class="summary__label">Interest</p>
+          <p class="summary__value summary__value--interest">$0000</p>
+          <button class="btn--sort">&downarrow; SORT</button>
+            </div>
+  
+            <!-- OPERATION: TRANSFERS -->
+            <div class="operation operation--transfer">
+          <h2>Transfer money</h2>
+          <form class="form form--transfer">
+            <input type="text" class="form__input form__input--to" />
+            <input type="number" class="form__input form__input--amount" />
+            <button class="form__btn form__btn--transfer">&rarr;</button>
+            <label class="form__label">Transfer to</label>
+            <label class="form__label">Amount</label>
+          </form>
+            </div>
+  
+            <!-- OPERATION: LOAN -->
+            <div class="operation operation--loan">
+          <h2>Request loan</h2>
+          <form class="form form--loan">
+            <input type="number" class="form__input form__input--loan-amount" />
+            <button class="form__btn form__btn--loan">&rarr;</button>
+            <label class="form__label form__label--loan">Amount</label>
+          </form>
+            </div>
+  
+            <!-- OPERATION: CLOSE -->
+            <div class="operation operation--close">
+          <h2>Close account</h2>
+          <form class="form form--close">
+            <input type="text" class="form__input form__input--user" />
+            <input
+              type="password"
+              maxlength="6"
+              class="form__input form__input--pin"
+            />
+            <button class="form__btn form__btn--close">&rarr;</button>
+            <label class="form__label">Confirm user</label>
+            <label class="form__label">Confirm PIN</label>
+          </form>
+            </div>
+  
+            <!-- LOGOUT TIMER -->
+            <p class="logout-timer">
+          You will be logged out in <span class="timer"></span>
+            </p>
+            <div class="logout-container">
+                <button class="logout-btn">Log out</button>
+            </div>
+      </div>
+
+
+
+
+    
+
+    <script>
+
+        let loginBtn = document.getElementById('login');
+        const containerApp = document.querySelector('.app');
+        const labelTimer = document.querySelector('.timer');
+        let input = document.getElementById('name');
+        let lastUserLogin = document.getElementById('user');
+        let currentUser = document.getElementById('present');
+
+        let logoutBtn = document.getElementById('delete');
+
+        let list = document.getElementById('list');
+
+        let userStorage = [];
+
+        let storageArray = JSON.parse(localStorage.getItem("isahProject")) || [];
+
+
+        // to find lastuser login ???????????????????????
+
+        lastuser = storageArray.find(function(store){
+            return store.logMode == 'lastuser';
+        })
+
+        if (lastuser) {
+
+            lastUserLogin.innerText = lastuser.loginStatus;
+            currentUser.innerText = `Welcome Back, ${lastuser.name}`;
+            
+        }else{
+            currentUser.innerText = 'Login to get started';
+            lastUserLogin.innerText = '';
+        }
+
+        document.addEventListener("visibilitychange", function() {
+        if (document.visibilityState === 'visible') {
+            if (lastuser) {
+                //Display UI and message
+                lastUserLogin.innerText = lastuser.loginStatus;
+                currentUser.innerText = `Welcome Back, ${lastuser.name}`;
+                // containerApp.style.opacity = 100;
+            }
+        } else {
+                console.log('lost focus');
+            }
+        });
+
+
+
+        // fecting user and status from local storage
+
+        function fetct(){
+            let outpout = '<ul>';
+
+            storageArray.forEach(function(val){
+
+                outpout += '<li>'+val.name+' <span class="status">'+val.loginStatus+'</span> <button class="presonal_logout" data-name="'+val.name+'">logout</button></li>';
+            })
+
+            outpout += '</ul>';
+            // containerApp.style.opacity = 100;
+
+            list.innerHTML = outpout;
+
+        }
+
+        fetct();
+
+
+
+        //console.log(lastuserArray);
+        //console.log(lastuser);
+
+
+        // login user ?????????????????
+
+        loginBtn.addEventListener('click', function(){
+
+            let formValue = input.value;
+
+            let inputValue = formValue.toUpperCase()
+
+
+            if (inputValue == '') {
+
+                alert('enter value');
+                
+            }else{
+                
+                
+                // checking if user alreay exit ::::::::::::::::
+                
+
+                checkuser = storageArray.filter(function(store){
+                    return store.name == inputValue;
+                    
+                });
+                
+                if (checkuser.length > 0) {
+                    
+                    let getuser = checkuser[0];
+                    
+                    // checking if user loginstatus is login
+
+                    if (getuser.loginStatus == 'Online') {
+                        
+                        alert('this user name already login');
+ 
+
+
+                        storageArray.forEach(function(store){
+                            if (store.name == inputValue) {
+                                
+                                let objone = {name: store.name, loginStatus: store.loginStatus, logMode: 'lastuser'};
+                                arrayone.push(objone);
+                            }else{
+
+                                let objone = {name: store.name, loginStatus: store.loginStatus, logMode: store.ogMode};
+                                arrayone.push(objone);
+
+                            }
+                        })
+
+
+                        localStorage.setItem("isahProject", JSON.stringify(arrayone));
+                        
+
+                        // if user loginstaatus is logout :::::::::::::::::::::
+                    }else{
+                        alert('this user has already logged out!');
+
+                        let arraytwo = [];
+
+
+                        storageArray.forEach(function(store){
+                            if (store.name == inputValue) {
+                                
+                                let objtwo = {name: store.name, loginStatus: 'Online', logMode: 'lastuser'};
+                                arraytwo.push(objtwo);
+                            }else{
+
+                                let objtwo = {name: store.name, loginStatus: store.loginStatus, logMode: store.ogMode};
+                                arraytwo.push(objtwo);
+
+                            }
+                        })
+
+
+                        localStorage.setItem("isahProject", JSON.stringify(arraytwo));
+
+                    }
+                    
+                    
+                }else{
+
+                    // login new user name :::::::::::::::::::::::::
+
+                    
+                
+                    storageArray.forEach(element => {
+
+                        let storeobbjectAgain = {name: element.name, loginStatus: element.loginStatus, logMode: 'no'};
+
+                        userStorage.push(storeobbjectAgain);
+                        
+                    });
+                    
+
+                    let storageObject = {name: inputValue, loginStatus: 'Online', logMode: 'lastuser'};
+
+                    userStorage.push(storageObject);
+
+                    localStorage.setItem("isahProject", JSON.stringify(userStorage));
+                    console.log(inputValue);
+                    // window.location.reload();
+                    
+                    
+                }
+
+                
+
+            }
+
+            fetct();
+            startLogOutTimer();
+        
+
+            console.log(storageArray);
+        })
+
+
+
+
+
+        // deleting all user 
+
+
+        logoutBtn.addEventListener('click', function(){
+            // containerApp.style.opacity = 0;
+
+            localStorage.removeItem("isahProject");
+            window.location.reload();
+        });
+
+
+
+        // loging out each user 
+
+        // log user out after 60s seconds of idleness
+        const startLogOutTimer = function timer() {
+            let time = 60;
+
+           //Call the timer evrey second
+           const timer = setInterval(function() {
+               const min = String(Math.trunc(time / 60)).padStart(2, 0);
+               const sec = String(Math.trunc(time % 60)).padStart(2, 0);
+
+               //print the time out
+               labelTimer.textContent =`${min}:${sec}`;
+
+               //When 0, stop the time
+                if (time === 0) {
+                    clearInterval(timer);
+                }
+               //Decrease 1s
+               time--;
+           }, 1000);
+           
+           console.log(timer());
+        }     
+    </script>
+    
+</body>
+</html>

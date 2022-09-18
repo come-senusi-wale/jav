@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+
+    <style>
+
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        #head, #curret{
+            margin: 20px;
+        }
+
+        #head h2, #curret h2{
+            text-transform: capitalize;
+            font-size: 15px;
+            color: #444;
+        }
+
+        #head h2 #user, #curret h2 #present{
+            margin-left: 20px;
+            color: #777;
+        }
+
+        #form{
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #form div {
+            margin-bottom: 20px;
+        }
+
+        #form div #name{
+            padding: 5px;
+            border: 1px solid #444;
+            font-size: 20px;
+            border-radius: 10px;
+        }
+
+        #form div #name:focus{
+            outline: none;
+        }
+
+        #form div #login, #form div #logout{
+            padding: 3px 8px;
+            font-size: 17px;
+            text-transform: capitalize;
+            border-radius: 5px;
+        }
+
+        #list_container{
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #list_container h3{
+            text-transform: capitalize;
+            color: #444;
+        }
+
+        #list_container div ul li{
+            padding: 5px;
+            color: #777;
+        }
+
+        #list_container div ul li .status{
+            margin-left: 30px;
+            color: aqua;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div id="head">
+        <h2>last user login: <span id="user">akin</span></h2>
+    </div>
+
+    
+
+    <div id="form">
+        <div>
+            <input type="text" name="" id="name" placeholder="user name">
+        </div>
+
+        <div>
+            <button id="login">login</button>
+        </div>
+
+        <div>
+            <button id="logout">delete all user</button>
+        </div>
+    </div>
+
+    <div id="list_container">
+        <h3>avialble user name, login status  and logout button</h3>
+        <div id="list">
+            
+        </div>
+    </div>
+
+    
+
+    <script>
+
+        let loginBtn = document.getElementById('login');
+        let input = document.getElementById('name');
+        let lastuserLogin = document.getElementById('user');
+
+        let logoutBtn = document.getElementById('logout');
+
+        let list = document.getElementById('list');
+
+        let userStorage = [];
+
+        let storageArray = JSON.parse(localStorage.getItem("isahProject")) || [];
+
+
+        // to find lastuser login ???????????????????????
+
+        lastuser = storageArray.find(function(store){
+            return store.logMode == 'lastuser';
+        })
+
+        if (lastuser) {
+
+            lastuserLogin.innerText = lastuser.name;
+            
+        }else{
+            lastuserLogin.innerText = 'no last user yet';
+        }
+
+
+
+
+        // fecting user and status from local storage
+
+        function fetct(){
+            let outpout = '<ul>';
+
+            storageArray.forEach(function(val){
+
+                outpout += '<li>'+val.name+' <span class="status" id="'+val.name+'btn">'+val.loginStatus+'</span> <button class="presonal_logout" data-name="'+val.name+'" >logout</button><span class="time" id="'+val.name+'">'+val.time+'</span><span > min remaining</span></li>';
+            })
+
+            outpout += '</ul>';
+
+            list.innerHTML = outpout;
+
+        }
+
+        fetct();
+
+
+
+        //console.log(lastuserArray);
+        //console.log(lastuser);
+
+
+        // login user ?????????????????
+
+        loginBtn.addEventListener('click', function(){
+
+            let formValue = input.value;
+
+            let inputValue = formValue.toLowerCase()
+
+            if (inputValue == '') {
+
+                alert('enter value');
+                
+            }else{
+
+                
+                // checking if user alreay exit ::::::::::::::::
+
+
+                checkuser = storageArray.filter(function(store){
+                    return store.name == inputValue;
+                })
+
+                if (checkuser.length > 0) {
+
+                    let getuser = checkuser[0];
+
+                    // checking if user loginstatus is login
+
+                    if (getuser.loginStatus == 'login') {
+                        
+                        alert('this user name already login');
+
+                        let arrayone = [];
+
+
+                        storageArray.forEach(function(store){
+                            if (store.name == inputValue) {
+                                
+                                let objone = {name: store.name, loginStatus: store.loginStatus, logMode: 'lastuser', time: 60};
+                                arrayone.push(objone);
+                            }else{
+
+                                let objone = {name: store.name, loginStatus: store.loginStatus, logMode: 'not last user', time: store.time};
+                                arrayone.push(objone);
+
+                            }
+                        })
+
+
+                        localStorage.setItem("isahProject", JSON.stringify(arrayone));
+
+
+                        // if user loginstaatus is logout :::::::::::::::::::::
+                    }else{
+                        alert('this user name already logout');
+
+                        let arraytwo = [];
+
+
+                        storageArray.forEach(function(store){
+                            if (store.name == inputValue) {
+                                
+                                let objtwo = {name: store.name, loginStatus: 'login', logMode: 'lastuser', time: 60};
+                                arraytwo.push(objtwo);
+                            }else{
+
+                                let objtwo = {name: store.name, loginStatus: store.loginStatus, logMode: 'not last user', time: store.time};
+                                arraytwo.push(objtwo);
+
+                            }
+                        })
+
+
+                        localStorage.setItem("isahProject", JSON.stringify(arraytwo));
+
+                    }
+                    
+                    
+                }else{
+
+                    // login new user name :::::::::::::::::::::::::
+
+                    
+                
+                    storageArray.forEach(element => {
+
+                        let storeobbjectAgain = {name: element.name, loginStatus: element.loginStatus, logMode: 'not last user', time: element.time};
+
+                        userStorage.push(storeobbjectAgain);
+                        
+                    });
+                    
+
+                    let storageObject = {name: inputValue, loginStatus: 'login', logMode: 'lastuser', time: 60};
+
+                    userStorage.push(storageObject);
+
+                    localStorage.setItem("isahProject", JSON.stringify(userStorage));
+                   
+                }
+
+                window.location.reload();
+
+                
+
+            }
+
+            fetct();
+
+        
+
+            //console.log(storageArray);
+        })
+
+
+
+
+
+        // deleting all user 
+
+
+        logoutBtn.addEventListener('click', function(){
+
+            localStorage.removeItem("isahProject");
+            window.location.reload();
+        })
+
+
+
+        // loging out each user 
+
+        //let userLogout = document.getElementsByClassName('presonal_logout');
+        let userLogout = document.querySelectorAll('.presonal_logout')
+
+        console.log(userLogout);
+
+        userLogout.forEach(function(user){
+            
+            user.addEventListener('click', function(event){
+
+                let userName = event.target.dataset.name;
+
+                let arraytre = [];
+
+
+                storageArray.forEach(function(store){
+                    if (store.name == userName) {
+                        
+                        let objtre = {name: store.name, loginStatus: 'logout', logMode: store.logMode, time: 0};
+                        arraytre.push(objtre);
+                    }else{
+
+                        let objtre = {name: store.name, loginStatus: store.loginStatus, logMode: store.logMode, time: store.time};
+                        arraytre.push(objtre);
+
+                    }
+                })
+
+
+                localStorage.setItem("isahProject", JSON.stringify(arraytre));
+                alert(userName+' successfully logout');
+
+                window.location.reload();
+
+
+                
+                
+            })
+        })
+
+
+
+        // timing logout
+        setInterval(() => {
+
+            let arrayfour = [];
+
+            storageArray.forEach(function(store){
+            
+                let user_name = store.name;
+                //console.log(user_name);
+                
+                let person =  document.getElementById(user_name);
+                
+                let user_time_remaining = person.textContent;
+
+                if (user_time_remaining <= 0) {
+
+                    let id = user_name+'btn';
+
+                    person.textContent = user_time_remaining;
+                    
+                    document.getElementById(id).textContent = 'logout';
+                    
+                    let objfour = {name: store.name, loginStatus: 'logout', logMode: store.logMode, time: 0};
+
+                    arrayfour.push(objfour);
+                    
+                }else{
+
+                     user_time_remaining--;
+
+                     person.textContent = user_time_remaining;
+
+                     let id = user_name+'btn';
+                    
+                    document.getElementById(id).textContent = 'login';
+                    
+                    let objfour = {name: store.name, loginStatus: 'login', logMode: store.logMode, time: user_time_remaining};
+
+                    arrayfour.push(objfour);
+
+                    
+                }
+            })
+
+            localStorage.setItem("isahProject", JSON.stringify(arrayfour));
+            
+        }, 1000);
+       
+
+
+
+        
+
+        
+    </script>
+    
+</body>
+</html>

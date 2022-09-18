@@ -1,0 +1,94 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    background: url(img/nin.jpg);
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    width: 80%;
+    text-align: center;
+   /* background-color: red;*/
+}
+
+.head{
+    text-transform: uppercase;
+}
+
+.head h2{
+    color: orangered;
+}
+
+.head h2 + h2{
+    color: white;
+    margin-bottom: 60px;
+}
+
+.context{
+    width: 60%;
+    border: 2px solid white;
+    margin: auto;
+    position: relative;
+}
+
+.img{
+    display: inline-block;
+    width: 150px;
+    height: 80px;
+    background-color: blue;
+    position: absolute;
+    top: -40px;
+    left: 40%;
+    border-radius: 50%;
+    background: url(img/eig.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+button{
+    display: block;
+    font-size: 30px;
+    color: orangered;
+    border: none;
+    border: 4px solid orangered;
+    border-radius: 50%;
+    position: absolute;
+    outline: none;
+    background-color: black;
+}
+
+button:hover{
+    color: white;
+    background-color: orangered;
+}
+
+.left-btn{
+    top: 50%;
+    left: -40px;
+}
+
+.right-btn{
+    top: 50%;
+    right: -40px;
+}
+
+.context h3{
+    text-transform: capitalize;
+    margin-top: 60px;
+    color: white;
+}
+
+.context p{
+    color: orangered;
+    font-size: 25px;
+}
+
+.context .text{
+    color: white;
+}

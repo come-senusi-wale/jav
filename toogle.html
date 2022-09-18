@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body{
+			background-color: #f1f1f1;
+			padding: 0;
+			margin: 0;
+		}
+
+		.nav-main{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			height: 60px;
+			background-color: #fff;
+			display: flex;
+			flex-wrap: wrap;
+			z-index: 1000;
+		}
+
+		.btn-toggle-nav{
+			width: 60px;
+			height: 100%;
+			background-color: #f98f39;
+			background-image: url(images/ele.jpg);
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: 40%;
+			cursor: pointer;
+		}
+
+		.btn-toggle-nav:hover{
+			opacity: 0.5;
+		}
+
+		.nav-main ul{
+			display: flex;
+			flex-wrap: wrap;
+			padding-left: 15px;
+		}
+
+		.nav-main ul li{
+			list-style-type: none;
+			line-height: px;
+		}
+
+		.nav-main ul li a{
+			display: block;
+			height:100%;
+			padding: 0 10px;
+			text-decoration: none;
+			text-transform: uppercase; 
+			color: #111;
+			font-family: ariel;
+		}
+
+		.nav-sidebar{
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 50px;
+			height: calc(100vh - 60px);
+			padding: 0 5px;
+			background-color: #1b1b1b;
+			z-index: 1000;
+			transition: all 0.3s ease-in-out;
+		}
+
+		.nav-sidebar ul{
+			padding-top: 15px;
+			padding-left: 0;
+			overflow: hidden;
+			visibility: hidden;
+		}
+
+		.nav-sidebar ul li{
+			line-height: 60px;
+			list-style: none;
+		}
+
+		.nav-sidebar ul i span, .nav-sidebar ul li a{
+			display: block;
+			height: 60px;
+			padding: 0 10px;
+			text-decoration: none;
+			text-transform: uppercase;
+			color: #fff;font-family: ar1al;
+			font-size: 16px;
+			white-space: nowrap;
+			opacity: 0;
+			transition: all 0.3s ease-in-out;
+		}
+
+		.nav-sidebar ul li a:hover{
+			background-color: #222;
+		}
+
+	</style>
+</head>
+<body>
+
+	<nav class="nav-main">
+		<div class="btn-toggle-nav" onclick="toggleNav()"></div>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Portfolio</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Gallary</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</nav>
+
+	<aside class="nav-sidebar">
+		<ul>
+			<li><span>Home</span></li>
+			<li><a href="#">Making a website</a></li>
+			<li><a href="#">Creating a video</a></li>
+			<li><a href="#">SEO optimazing a website</a></li>
+			<li><a href="#">Walking through the park</a></li>
+			<li><a href="#">Just another day</a></li>
+		</ul>
+	</aside>
+
+</body>
+	<script type="text/javascript">
+		let toggleNavStatus = false;
+
+		let toggleNav = function() {
+			let getSidebar = document.querySelector(".nav-sidebar");
+			let getSidebarUl = document.querySelector(".nav-sidebar ul");
+			let getSidebarTitle = document.querySelector(".nav-sidebar span");
+			let getSidebarLink = document.querySelectorAll(".nav-sidebar a");
+
+
+			if (toggleNavStatus === false) {
+				getSidebarUl.style.visibility = "visible";
+				getSidebar.style.width = "272px";
+				getSidebarTitle.style.opacity = "0.5";
+
+				let arrayLength = getSidebarLink.length;
+				for (let i = 0; i < arrayLength; i++ ){
+					getSidebarLink[i].style.opacity = "1";
+				}
+
+				toggleNavStatus = true;
+			}
+
+			else if (toggleNavStatus === true) {
+				
+				getSidebar.style.width = "50px";
+				getSidebarTitle.style.opacity = "0";
+
+				let arrayLength = getSidebarLink.length;
+				for (let i = 0; i < arrayLength; i++ ){
+					getSidebarLink[i].style.opacity = "0";
+				}
+
+				getSidebarUl.style.visibility = "hidden";
+
+				toggleNavStatus = false;
+			}
+		}
+	</script>
+</html>

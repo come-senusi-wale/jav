@@ -1,0 +1,107 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+
+.container .img{
+    width: 30%;
+    height: 100px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.photo{
+    width: 100%;
+    height: 100%;
+}
+
+.module{
+    width: 80%;
+    height: 400px;
+    /*background-color: violet;*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 20px;
+    margin-top: 30px;
+    z-index: 1000;
+    display: none;
+}
+
+.module .img-container{
+    width: 90%;
+    margin: auto;
+    height: 200px;
+    background: url(img/eig.jpg);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+   
+}
+
+.module .close{
+    display: block;
+    position: absolute;
+    right: 6%;
+    top: 15%;
+    color: red;
+    font-size: 25px;
+    font-weight: bolder;
+    width: 100px;
+    border: 2px solid  blanchedalmond;
+    background-color: blanchedalmond;
+    text-align: center;
+    cursor: pointer;
+}
+
+ .left-btn{
+    position: absolute;
+    top: 40%;
+    left: 2%;
+    color: blue;
+    font-size: 35px;
+    font-weight: bolder;
+    width: 20px;
+    border: 2px solid  blanchedalmond;
+    background-color: blanchedalmond;
+    text-align: center;
+    cursor: pointer;
+}
+
+.right-btn{
+    position: absolute;
+    top: 40%;
+    right: 2%;
+    color: blue;
+    font-size: 35px;
+    font-weight: bolder;
+    width: 20px;
+    border: 2px solid  blanchedalmond;
+    background-color: blanchedalmond;
+    text-align: center;
+    cursor: pointer;
+}
+
+.show{
+    display: block;
+}

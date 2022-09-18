@@ -1,0 +1,116 @@
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.alert{
+    width: 70%;
+    height: 60px;
+    background-color: yellow;
+    margin: auto;
+    margin-top: 20px;
+   line-height: 60px;
+   border-radius: 6px;
+   visibility: hidden;
+}
+
+.alert-danger{
+    background-color: red;
+    visibility: visible;
+}
+
+.alert-sucess{
+    background-color: blue;
+    visibility: visible;
+}
+
+h2{
+    text-transform: capitalize;
+   font-size: 25px;
+}
+
+form{
+    width: 70%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input{
+    width: 70%;
+    outline: none;
+    border: none;
+    border: 2px solid #00FFFF;
+    height: 25px;
+    border-radius: 6px 0 0 6px;
+}
+
+.addbtn{
+    width: 30%;
+    outline: none;
+    border: none;
+    border: 2px solid #00FFFF;
+    border-left: none;
+    height: 31px;
+    color:  #00FFFF;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 0 6px 6px 0;
+}
+
+.items{
+    width: 70%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.item-list{
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+
+.item-content{
+    width: 70%;
+}
+
+.item-complete{
+    width: 10%;
+    cursor: pointer;
+}
+
+.item-edit{
+    width: 10%;
+    cursor: pointer;
+    color: blue;
+}
+
+.item-delete{
+    width: 10%;
+    cursor: pointer;
+    color: red;
+}
+
+.clear-btn{
+    display: inline-block;
+    height: 30px;
+    border: none;
+    border: 2px solid #00FFFF;
+    color: #00ffff;
+    font-size: 20px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.text-dec{
+    opacity: 0.5;
+}

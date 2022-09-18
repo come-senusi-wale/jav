@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+		body{
+			margin: 20px;
+			padding: 0;
+			background-color: #333;
+		}
+
+		.container{
+			width: 760px;
+			margin: auto;
+			border: 3px solid #fff;
+			background-color: #fff;
+			overflow: hidden;
+		}
+
+		.main-img, .imgs{
+			width: 100%;
+		}
+
+		.imgs{
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			grid-gap: 5px;
+		}
+		
+	</style>
+</head>
+<body>
+
+	<div class="container">
+
+		<div class="main-img">
+			<img src="images/ele.jpg" id="current" height="300">
+		</div>
+
+		<div class="imgs">
+			<img src="images/ele.jpg" height="100">
+			<img src="images/nin.jpg" height="100">
+			<img src="images/fiv.jpg" height="100">
+			<img src="images/eig.jpg" height="100">
+			<img src="images/one.jpg" height="100">
+			<img src="images/six.jpg" height="100">
+			<img src="images/twe.jpg" height="100">
+			<img src="images/tre.jpg" height="100">
+		</div>
+	</div>
+
+</body>
+
+	<script type="text/javascript">
+		const current = document.querySelector('#current');
+		const imgs = document.querySelectorAll('.imgs img');
+		const opacity = 0.4;
+
+
+		imgs.forEach(img => img.addEventListener('click', imgClick));
+
+		function imgClick(e) {
+			current.src = e.target.src;
+
+			e.target.style.opacity = opacity
+		}
+
+	</script>
+</html>
